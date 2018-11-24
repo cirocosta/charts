@@ -467,7 +467,7 @@ concourse:
     ## Blacklist of addresses to skip the proxy when reaching.
     # no_proxy:
     ## If set, the worker will be immediately removed upon stalling.
-    # ephemeral:
+    ephemeral: true
     ## Port on which to listen for beacon pprof server.
     # bindDebugPort: 9099
     ## Version of the worker. This is normally baked in to the binary, so this flag is hidden.
@@ -894,7 +894,7 @@ worker:
 persistence:
   ## Enable persistence using Persistent Volume Claims.
   ##
-  enabled: true
+  enabled: false
 
   ## Worker Persistence configuration.
   ##

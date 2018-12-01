@@ -467,7 +467,7 @@ concourse:
     ## Blacklist of addresses to skip the proxy when reaching.
     # no_proxy:
     ## If set, the worker will be immediately removed upon stalling.
-    # ephemeral:
+    ephemeral: true
     ## Port on which to listen for beacon pprof server.
     # bindDebugPort: 9099
     ## Version of the worker. This is normally baked in to the binary, so this flag is hidden.
@@ -876,11 +876,6 @@ worker:
     guardian.api.garden-server.create.failed
     baggageclaim.api.volume-server.create-volume-async.failed-to-create
 
-  ## Strategy for StatefulSet updates (requires Kubernetes 1.6+)
-  ## Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset
-  ##
-  updateStrategy: RollingUpdate
-
   ## Pod Management strategy (requires Kubernetes 1.7+)
   ## Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#pod-management-policies
   ##
@@ -894,7 +889,7 @@ worker:
 persistence:
   ## Enable persistence using Persistent Volume Claims.
   ##
-  enabled: true
+  enabled: false
 
   ## Worker Persistence configuration.
   ##

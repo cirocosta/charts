@@ -228,6 +228,15 @@ spec:
             {{- end }}
             {{- end }}
 
+            {{- if .Values.concourse.web.secretRetryAttempts }}
+            - name: CONCOURSE_SECRET_RETRY_ATTEMPTS
+              value: {{ .Values.concourse.web.secretRetryAttempts | quote }}
+            {{- end }}
+            {{- if .Values.concourse.web.secretRetryInterval }}
+            - name: CONCOURSE_SECRET_RETRY_INTERVAL
+              value: {{ .Values.concourse.web.secretRetryInterval | quote }}
+            {{- end }}
+
             {{- if .Values.concourse.web.kubernetes.enabled }}
             - name: CONCOURSE_KUBERNETES_IN_CLUSTER
               value: "true"
@@ -262,6 +271,10 @@ spec:
                   name: {{ template "concourse.concourse.fullname" . }}
                   key: aws-secretsmanager-session-token
             {{- end }}
+            {{- if .Values.concourse.web.awsSecretsManager.region }}
+            - name: CONCOURSE_AWS_SECRETSMANAGER_REGION
+              value: {{ .Values.concourse.web.awsSecretsManager.region | quote }}
+            {{- end }}
             {{- if .Values.concourse.web.awsSecretsManager.pipelineSecretTemplate }}
             - name: CONCOURSE_AWS_SECRETSMANAGER_PIPELINE_SECRET_TEMPLATE
               value: {{ .Values.concourse.web.awsSecretsManager.pipelineSecretTemplate | quote }}
@@ -289,6 +302,10 @@ spec:
                 secretKeyRef:
                   name: {{ template "concourse.concourse.fullname" . }}
                   key: aws-ssm-session-token
+            {{- end }}
+            {{- if .Values.concourse.web.awsSsm.region }}
+            - name: CONCOURSE_AWS_SSM_REGION
+              value: {{ .Values.concourse.web.awsSsm.region | quote }}
             {{- end }}
             {{- if .Values.concourse.web.awsSsm.pipelineSecretTemplate }}
             - name: CONCOURSE_AWS_SSM_PIPELINE_SECRET_TEMPLATE
@@ -393,6 +410,10 @@ spec:
             - name: CONCOURSE_METRICS_ATTRIBUTE
               value: {{ .Values.concourse.web.metrics.attribute | quote }}
             {{- end }}
+            {{- if .Values.concourse.web.metrics.captureErrorMetrics }}
+            - name: CONCOURSE_CAPTURE_ERROR_METRICS
+              value: {{ .Values.concourse.web.metrics.captureErrorMetrics | quote }}
+            {{- end }}
 
             {{- if .Values.concourse.web.datadog.enabled }}
             - name: CONCOURSE_DATADOG_AGENT_HOST
@@ -487,6 +508,10 @@ spec:
             - name: CONCOURSE_GC_ONE_OFF_GRACE_PERIOD
               value: {{ .Values.concourse.web.gc.oneOffGracePeriod | quote }}
             {{- end }}
+            {{- if .Values.concourse.web.gc.missingGracePeriod }}
+            - name: CONCOURSE_GC_MISSING_GRACE_PERIOD
+              value: {{ .Values.concourse.web.gc.missingGracePeriod | quote }}
+            {{- end }}
             {{- end }}
 
             {{- if .Values.concourse.web.syslog.enabled }}
@@ -523,15 +548,14 @@ spec:
             - name: CONCOURSE_SESSION_SIGNING_KEY
               value: "{{ .Values.web.keySecretsPath }}/session_signing_key"
 
+            {{- if .Values.concourse.web.auth.mainTeam.config }}
+            - name: CONCOURSE_MAIN_TEAM_CONFIG
+              value: {{ .Values.concourse.web.auth.mainTeam.config | quote }}
+            {{- end }}
             {{- if .Values.concourse.web.auth.mainTeam.localUser }}
             - name: CONCOURSE_MAIN_TEAM_LOCAL_USER
               value: {{ .Values.concourse.web.auth.mainTeam.localUser | quote }}
             {{- end }}
-            {{- if .Values.concourse.web.auth.mainTeam.allowAllUsers }}
-            - name: CONCOURSE_MAIN_TEAM_ALLOW_ALL_USERS
-              value: {{ .Values.concourse.web.auth.mainTeam.allowAllUsers | quote }}
-            {{- end }}
-
             {{- if .Values.concourse.web.auth.mainTeam.cf.org }}
             - name: CONCOURSE_MAIN_TEAM_CF_ORG
               value: {{ .Values.concourse.web.auth.mainTeam.cf.org | quote }}
@@ -560,6 +584,15 @@ spec:
             {{- if .Values.concourse.web.auth.mainTeam.github.team }}
             - name: CONCOURSE_MAIN_TEAM_GITHUB_TEAM
               value: {{ .Values.concourse.web.auth.mainTeam.github.team | quote }}
+            {{- end }}
+
+            {{- if .Values.concourse.web.auth.mainTeam.bitbucketCloud.user }}
+            - name: CONCOURSE_MAIN_TEAM_BITBUCKET_CLOUD_USER
+              value: {{ .Values.concourse.web.auth.mainTeam.bitbucketCloud.user | quote }}
+            {{- end }}
+            {{- if .Values.concourse.web.auth.mainTeam.bitbucketCloud.team }}
+            - name: CONCOURSE_MAIN_TEAM_BITBUCKET_CLOUD_TEAM
+              value: {{ .Values.concourse.web.auth.mainTeam.bitbucketCloud.team | quote }}
             {{- end }}
 
             {{- if .Values.concourse.web.auth.mainTeam.gitlab.user }}
@@ -622,7 +655,18 @@ spec:
               value: {{ .Values.concourse.web.auth.cf.skipSslValidation | quote }}
             {{- end }}
             {{- end }}
-
+            {{- if .Values.concourse.web.auth.bitbucketCloud.enabled }}
+            - name: CONCOURSE_BITBUCKET_CLOUD_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "concourse.concourse.fullname" . }}
+                  key: bitbucket-cloud-client-id
+            - name: CONCOURSE_BITBUCKET_CLOUD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "concourse.concourse.fullname" . }}
+                  key: bitbucket-cloud-client-secret
+            {{- end }}
             {{- if .Values.concourse.web.auth.github.enabled }}
             - name: CONCOURSE_GITHUB_CLIENT_ID
               valueFrom:

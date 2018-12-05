@@ -36,32 +36,26 @@ spec:
           args:
             - worker
           livenessProbe:
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - |-
-                  FATAL_ERRORS=$( echo "${LIVENESS_PROBE_FATAL_ERRORS}" | grep -q '\S' && \
-                      grep -F "${LIVENESS_PROBE_FATAL_ERRORS}" /tmp/.liveness_probe )
-                  cp /dev/null /tmp/.liveness_probe
-                  if [ ! -z "${FATAL_ERRORS}" ]; then
-                    >&2 echo "Fatal error detected: ${FATAL_ERRORS}"
-                    exit 1
-                  fi
-            failureThreshold: 1
+            httpGet:
+              path: /
+              port: {{ .Values.concourse.worker.healthcheckPort }}
+            timeoutSeconds: 5
+            failureThreshold: 3
             initialDelaySeconds: 10
             periodSeconds: 10
-          lifecycle:
-            preStop:
-              exec:
-                command:
-                  - /bin/sh
-                  - -c
-                  - |-
-                    while ! concourse retire-worker --name=${HOSTNAME} | grep -q worker-not-found; do
-                      sleep 5
-                    done
           env:
+            {{- if .Values.concourse.worker.healthcheckIp }}
+            - name: CONCOURSE_HEALTHCHECK_IP
+              value: {{ .Values.concourse.worker.healthcheckIp | quote }}
+            {{- end }}
+            {{- if .Values.concourse.worker.healthcheckPort }}
+            - name: CONCOURSE_HEALTHCHECK_PORT
+              value: {{ .Values.concourse.worker.healthcheckPort | quote }}
+            {{- end }}
+            {{- if .Values.concourse.worker.healthcheckTimeout }}
+            - name: CONCOURSE_HEALTHCHECK_TIMEOUT
+              value: {{ .Values.concourse.worker.healthcheckTimeout | quote }}
+            {{- end }}
             {{- if .Values.concourse.worker.name }}
             - name: CONCOURSE_NAME
               value: {{ .Values.concourse.worker.name | quote }}

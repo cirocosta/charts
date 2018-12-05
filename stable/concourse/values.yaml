@@ -8,12 +8,12 @@
 
 ## Concourse image.
 ##
-image: concourse/concourse
+image: concourse/dev
 
 ## Concourse image version.
 ## ref: https://hub.docker.com/r/concourse/concourse/tags/
 ##
-imageTag: "4.2.1"
+imageTag: "latest"
 
 ## Specific image digest to use in place of a tag.
 ## ref: https://kubernetes.io/docs/concepts/configuration/overview/#container-images
@@ -468,6 +468,12 @@ concourse:
     # no_proxy:
     ## If set, the worker will be immediately removed upon stalling.
     ephemeral: true
+    ## IP address on which to listen for health checking requests.
+    healthcheckIp: 0.0.0.0
+    ## Port on which to listen for health checking requests.
+    healthcheckPort: 8888
+    ## HTTP timeout for the full duration of health checking.
+    # healthcheckTimeout: 5s
     ## Port on which to listen for beacon pprof server.
     # bindDebugPort: 9099
     ## Version of the worker. This is normally baked in to the binary, so this flag is hidden.

@@ -43,6 +43,10 @@ spec:
             failureThreshold: 3
             initialDelaySeconds: 10
             periodSeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "kill", "-s", "SIGUSR2", "1" ]
           env:
             {{- if .Values.concourse.worker.healthcheckIp }}
             - name: CONCOURSE_HEALTHCHECK_IP

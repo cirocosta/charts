@@ -458,6 +458,8 @@ concourse:
     # name:
     ## A tag to set during registration. Can be specified multiple times.
     # tag:
+    ## Duration after which the registration should be swapped to another random SSH gateway.
+    # rebalanceInterval:
     ## The name of the team that this worker will be assigned to.
     # team:
     ## HTTP proxy endpoint to use for containers.

@@ -85,6 +85,10 @@ spec:
             - name: CONCOURSE_NAME
               value: {{ .Values.concourse.worker.name | quote }}
             {{- end }}
+            {{- if .Values.concourse.worker.rebalanceInterval }}
+            - name: CONCOURSE_REBALANCE_INTERVAL
+              value: {{ .Values.concourse.worker.rebalanceInterval | quote }}
+            {{- end }}
             {{- if .Values.concourse.worker.tag }}
             - name: CONCOURSE_TAG
               value: {{ .Values.concourse.worker.tag | quote }}
@@ -137,14 +141,12 @@ spec:
             - name: CONCOURSE_LOG_LEVEL
               value: {{ .Values.concourse.worker.logLevel | quote }}
             {{- end }}
-
             - name: CONCOURSE_TSA_HOST
               value: "{{ template "concourse.web.fullname" . }}:{{ .Values.concourse.web.tsa.bindPort}}"
             - name: CONCOURSE_TSA_PUBLIC_KEY
               value: "/concourse-keys/host_key.pub"
             - name: CONCOURSE_TSA_WORKER_PRIVATE_KEY
               value: "/concourse-keys/worker_key"
-
             {{- if .Values.concourse.worker.garden.logLevel }}
             - name: CONCOURSE_GARDEN_LOG_LEVEL
               value: {{ .Values.concourse.worker.garden.logLevel | quote }}

@@ -174,8 +174,6 @@ spec:
             - name: CONCOURSE_BAGGAGECLAIM_REAP_INTERVAL
               value: {{ .Values.concourse.worker.baggageclaim.reapInterval | quote }}
             {{- end }}
-            - name: LIVENESS_PROBE_FATAL_ERRORS
-              value: {{ .Values.worker.fatalErrors | quote }}
 
 {{- if .Values.worker.env }}
 {{ toYaml .Values.worker.env | indent 12 }}

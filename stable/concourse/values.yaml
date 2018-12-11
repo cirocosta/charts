@@ -73,6 +73,11 @@ concourse:
     # cliArtifactsDir:
     ## Log database queries.
     # logDbQueries:
+    ## The number of attempts secret will be retried to be fetched,
+    ## in case a retryable error happens.
+    # secretRetryAttempts
+    ## The interval between secret retry retieval attempts.
+    # secretRetryInterval
     ## Interval on which to run build tracking.
     # buildTrackerInterval: 10s
     ## Default build logs to retain, 0 means all
@@ -265,6 +270,9 @@ concourse:
       interval: 30s
       ## Grace period before reaping oneOff task containers
       oneOffGracePeriod: 5m
+      ## Period after which to reap containers and volumes that were created but
+      ## went missing from the worker.
+      # missingGracePeriod: 5m
     syslog:
       enabled: false
       ## Client hostname with which the build logs will be sent to the syslog server.

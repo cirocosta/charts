@@ -215,6 +215,15 @@ spec:
             {{- end }}
             {{- end }}
 
+            {{- if .Values.concourse.web.secretRetryAttempts }}
+            - name: CONCOURSE_SECRET_RETRY_ATTEMPTS
+              value: {{ .Values.concourse.web.secretRetryAttempts | quote }}
+            {{- end }}
+            {{- if .Values.concourse.web.secretRetryInterval }}
+            - name: CONCOURSE_SECRET_RETRY_INTERVAL
+              value: {{ .Values.concourse.web.secretRetryInterval | quote }}
+            {{- end }}
+
             {{- if .Values.concourse.web.kubernetes.enabled }}
             - name: CONCOURSE_KUBERNETES_IN_CLUSTER
               value: "true"
@@ -482,6 +491,10 @@ spec:
             {{- if .Values.concourse.web.gc.oneOffGracePeriod }}
             - name: CONCOURSE_GC_ONE_OFF_GRACE_PERIOD
               value: {{ .Values.concourse.web.gc.oneOffGracePeriod | quote }}
+            {{- end }}
+            {{- if .Values.concourse.web.gc.missingGracePeriod }}
+            - name: CONCOURSE_GC_MISSING_GRACE_PERIOD
+              value: {{ .Values.concourse.web.gc.missingGracePeriod | quote }}
             {{- end }}
             {{- end }}
 

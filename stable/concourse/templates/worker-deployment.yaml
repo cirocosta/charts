@@ -48,6 +48,18 @@ spec:
               exec:
                 command: [ "kill", "-s", "SIGUSR2", "1" ]
           env:
+            {{- if .Values.concourse.worker.sweepInterval }}
+            - name: CONCOURSE_SWEEP_INTERVAL
+              value: {{ .Values.concourse.worker.sweepInterval | quote }}
+            {{- end }}
+            {{- if .Values.concourse.worker.resourceTypes }}
+            - name: CONCOURSE_RESOURCE_TYPES
+              value: {{ .Values.concourse.worker.resourceTypes | quote }}
+            {{- end }}
+            {{- if .Values.concourse.worker.drainTimeout }}
+            - name: CONCOURSE_DRAIN_TIMEOUT
+              value: {{ .Values.concourse.worker.drainTimeout | quote }}
+            {{- end }}
             {{- if .Values.concourse.worker.healthcheckIp }}
             - name: CONCOURSE_HEALTHCHECK_IP
               value: {{ .Values.concourse.worker.healthcheckIp | quote }}

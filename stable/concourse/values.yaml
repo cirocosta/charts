@@ -292,6 +292,8 @@ concourse:
       ## Length of time for which tokens are valid. Afterwards, users will have to log back in.
       # duration: 24h
       mainTeam:
+        ## Configuration file for specifying team params
+        # config:
         ## List of whitelisted local concourse users. These are the users you've added at atc startup with the addLocalUser setting.
         localUser: "test"
         ## Setting this flag will whitelist all logged in users in the system. ALL OF THEM. If, for example, you've configured GitHub, any user with a GitHub account will have access to your team.
@@ -306,6 +308,12 @@ concourse:
           space:
           ## (Deprecated) List of whitelisted CloudFoundry space guids
           spaceGuid:
+        ## Authentication (Main Team) (Bitbucket Cloud)
+        bitbucketCloud:
+          ## List of whitelisted Bitbucket Cloud users
+          user:
+          ## List of whitelisted Bitbucket Cloud teams
+          team:
         ## Authentication (Main Team) (GitHub)
         github:
           ## List of whitelisted GitHub users

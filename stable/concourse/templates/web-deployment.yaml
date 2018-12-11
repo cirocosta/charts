@@ -612,7 +612,18 @@ spec:
               value: {{ .Values.concourse.web.auth.cf.skipSslValidation | quote }}
             {{- end }}
             {{- end }}
-
+            {{- if .Values.concourse.web.auth.bitbucketCloud.enabled }}
+            - name: CONCOURSE_BITBUCKET_CLOUD_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "concourse.concourse.fullname" . }}
+                  key: bitbucket-cloud-client-id
+            - name: CONCOURSE_BITBUCKET_CLOUD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "concourse.concourse.fullname" . }}
+                  key: bitbucket-cloud-client-secret
+            {{- end }}
             {{- if .Values.concourse.web.auth.github.enabled }}
             - name: CONCOURSE_GITHUB_CLIENT_ID
               valueFrom:

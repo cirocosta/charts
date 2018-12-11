@@ -346,6 +346,9 @@ concourse:
         # host:
         ## CA certificate of GitHub Enterprise deployment
         # useCaCert:
+      ## Authentication (BitbucketCloud)
+      bitbucketCloud:
+        enabled: false
       ## Authentication (GitLab)
       gitlab:
         enabled: false
@@ -959,6 +962,10 @@ secrets:
   # cfClientId:
   # cfClientSecret:
   # cfCaCert: |-
+
+  ## Secrets for BitbucketCloud OAuth.
+  # bitbucketCloudClientId:
+  # bitbucketCloudClientSecret:
 
   ## Secrets for GitHub OAuth.
   ##

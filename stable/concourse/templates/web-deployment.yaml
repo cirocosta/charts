@@ -250,7 +250,7 @@ spec:
                   key: aws-secretsmanager-session-token
             {{- end }}
             {{- if .Values.concourse.web.awsSecretsManager.region }}
-            - name: AWS_REGION
+            - name: CONCOURSE_AWS_SECRETSMANAGER_REGION
               value: {{ .Values.concourse.web.awsSecretsManager.region | quote }}
             {{- end }}
             {{- if .Values.concourse.web.awsSecretsManager.pipelineSecretTemplate }}
@@ -283,7 +283,7 @@ spec:
                   key: aws-ssm-session-token
             {{- end }}
             {{- if .Values.concourse.web.awsSsm.region }}
-            - name: AWS_REGION
+            - name: CONCOURSE_AWS_SSM_REGION
               value: {{ .Values.concourse.web.awsSsm.region | quote }}
             {{- end }}
             {{- if .Values.credentialManager.awsSsm.pipelineSecretTemplate }}
@@ -518,16 +518,10 @@ spec:
             {{- end }}
             - name: CONCOURSE_SESSION_SIGNING_KEY
               value: "/concourse-keys/session_signing_key"
-
             {{- if .Values.concourse.web.auth.mainTeam.localUser }}
             - name: CONCOURSE_MAIN_TEAM_LOCAL_USER
               value: {{ .Values.concourse.web.auth.mainTeam.localUser | quote }}
             {{- end }}
-            {{- if .Values.concourse.web.auth.mainTeam.allowAllUsers }}
-            - name: CONCOURSE_MAIN_TEAM_ALLOW_ALL_USERS
-              value: {{ .Values.concourse.web.auth.mainTeam.allowAllUsers | quote }}
-            {{- end }}
-
             {{- if .Values.concourse.web.auth.mainTeam.cf.org }}
             - name: CONCOURSE_MAIN_TEAM_CF_ORG
               value: {{ .Values.concourse.web.auth.mainTeam.cf.org | quote }}

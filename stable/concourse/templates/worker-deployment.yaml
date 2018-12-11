@@ -108,10 +108,6 @@ spec:
             - name: CONCOURSE_BIND_PORT
               value: {{ .Values.concourse.worker.bindPort | quote }}
             {{- end }}
-            {{- if .Values.concourse.worker.peerIp }}
-            - name: CONCOURSE_PEER_IP
-              value: {{ .Values.concourse.worker.peerIp | quote }}
-            {{- end }}
             {{- if .Values.concourse.worker.logLevel }}
             - name: CONCOURSE_LOG_LEVEL
               value: {{ .Values.concourse.worker.logLevel | quote }}

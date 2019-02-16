@@ -37,6 +37,8 @@ imagePullPolicy: IfNotPresent
 ##
 concourse:
   web:
+    ## Enable equivalent resources across pipelines and teams to share a single version history.
+    # enableGlobalResources:
     ## Minimum level of logs to see.
     # logLevel: info
     ## IP address on which to listen for web traffic.
@@ -538,6 +540,8 @@ concourse:
       # config:
       ## Enable a proxy DNS server for Garden
       # dnsProxyEnable:
+      ## Use the insecure Houdini Garden backend.
+      # useHoudini:
 
     baggageclaim:
       ## Minimum level of logs to see.
@@ -560,6 +564,8 @@ concourse:
       # overlaysDir:
       ## Interval on which to reap expired volumes.
       # reapInterval: 10s
+      ## Disable remapping of user/group IDs in unprivileged volumes.
+      # disableUserNamespaces:
 
 ## Configuration values for Concourse Web components.
 ##

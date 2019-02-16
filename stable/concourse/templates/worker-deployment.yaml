@@ -140,6 +140,10 @@ spec:
               value: "{{ .Values.worker.keySecretsPath }}/host_key.pub"
             - name: CONCOURSE_TSA_WORKER_PRIVATE_KEY
               value: "{{ .Values.worker.keySecretsPath }}/worker_key"
+            {{- if .Values.concourse.worker.garden.useHoudini }}
+              - name: CONCOURSE_GARDEN_USE_HOUDINI
+              value: {{ .Values.concourse.worker.garden.useHoudini | quote }}
+            {{- end }}
             {{- if .Values.concourse.worker.garden.bin }}
             - name: CONCOURSE_GARDEN_BIN
               value: {{ .Values.concourse.worker.garden.bin | quote }}
@@ -191,6 +195,10 @@ spec:
             {{- if .Values.concourse.worker.baggageclaim.reapInterval }}
             - name: CONCOURSE_BAGGAGECLAIM_REAP_INTERVAL
               value: {{ .Values.concourse.worker.baggageclaim.reapInterval | quote }}
+            {{- end }}
+            {{- if .Values.concourse.worker.baggageclaim.disableUserNamespaces }}
+            - name: CONCOURSE_BAGGAGECLAIM_DISABLE_USER_NAMESPACES
+              value: {{ .Values.concourse.worker.baggageclaim.disableUserNamespaces | quote }}
             {{- end }}
 
 {{- if .Values.worker.env }}

@@ -40,13 +40,11 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
           args:
             - "web"
-            {{- if and (.Values.concourse.web.awsSecretsManager.enabled) (.Values.concourse.web.awsSecretsManager.region) }}
-            - '--aws-secretsmanager-region={{ .Values.concourse.web.awsSecretsManager.region | quote }}'
-            {{- end }}
-            {{- if and (.Values.concourse.web.awsSsm.enabled) (.Values.concourse.web.awsSsm.region) }}
-            - '--aws-ssm-region={{ .Values.concourse.web.awsSsm.region | quote }}'
-            {{- end }}
           env:
+            {{- if .Values.concourse.web.enableGlobalResources }}
+            - name: CONCOURSE_ENABLE_GLOBAL_RESOURCES
+              value: {{ .Values.concourse.web.enableGlobalResources | quote }}
+            {{- end }}
             {{- if .Values.concourse.web.logLevel }}
             - name: CONCOURSE_LOG_LEVEL
               value: {{ .Values.concourse.web.logLevel | quote }}

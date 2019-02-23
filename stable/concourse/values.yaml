@@ -12,7 +12,6 @@ image: concourse/concourse-rc
 
 ## Concourse image version.
 ## ref: https://hub.docker.com/r/concourse/concourse/tags/
-## TODO - make it not `latest`
 imageTag: "latest"
 
 ## Specific image digest to use in place of a tag.
@@ -230,7 +229,7 @@ concourse:
       ## A keyValue attribute to attach to emitted metrics. Can be specified multiple times.
       attribute:
       ## Enable capturing of error log metrics.
-      # captureErrorMetrics: 
+      # captureErrorMetrics:
     datadog:
       enabled: false
       ## Use IP of node the pod is scheduled on, overrides `agentHost`
@@ -471,8 +470,10 @@ concourse:
       # bindIp: 0.0.0.0
       ## Port on which to listen for SSH.
       bindPort: 2222
+      ## IP address on which to listen for the pprof debugger endpoints. (default: 127.0.0.1)
+      # debugBindIp:
       ## Port on which to listen for TSA pprof server.
-      # bindDebugPort: 8089
+      # debugBindPort: 8089
       ## IP address of this TSA, reachable by the ATCs. Used for forwarded worker addresses.
       # peerIp:
       ## Path to private key to use for the SSH server.

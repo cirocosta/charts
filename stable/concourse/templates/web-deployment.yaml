@@ -886,9 +886,13 @@ spec:
             {{- end }}
             - name: CONCOURSE_TSA_BIND_PORT
               value: {{ .Values.concourse.web.tsa.bindPort | quote }}
-            {{- if .Values.concourse.web.tsa.bindDebugPort }}
-            - name: CONCOURSE_TSA_BIND_DEBUG_PORT
-              value: {{ .Values.concourse.web.tsa.bindDebugPort | quote }}
+            {{- if .Values.concourse.web.tsa.debugBindIp }}
+            - name: CONCOURSE_TSA_DEBUG_BIND_IP
+              value: {{ .Values.concourse.web.tsa.debugBindIp | quote }}
+            {{- end }}
+            {{- if .Values.concourse.web.tsa.debugBindPort }}
+            - name: CONCOURSE_TSA_DEBUG_BIND_PORT
+              value: {{ .Values.concourse.web.tsa.debugBindPort | quote }}
             {{- end }}
             {{- if .Values.concourse.web.tsa.peerIp }}
             - name: CONCOURSE_TSA_PEER_IP

@@ -553,8 +553,10 @@ concourse:
       # bindIp: 127.0.0.1
       ## Port on which to listen for API traffic.
       # bindPort: 7788
+      ## IP address on which to listen for the pprof debugger endpoints.
+      # debugBindIp: 127.0.0.1
       ## Port on which to listen for baggageclaim pprof server.
-      # bindDebugPort: 8099
+      # debugBindPort: 8099
       ## Directory in which to place volume data.
       # volumes:
       ## Driver to use for managing volumes.

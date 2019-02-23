@@ -172,9 +172,13 @@ spec:
             - name: CONCOURSE_BAGGAGECLAIM_BIND_PORT
               value: {{ .Values.concourse.worker.baggageclaim.bindPort | quote }}
             {{- end }}
-            {{- if .Values.concourse.worker.baggageclaim.bindDebugPort }}
-            - name: CONCOURSE_BAGGAGECLAIM_BIND_DEBUG_PORT
-              value: {{ .Values.concourse.worker.baggageclaim.bindDebugPort | quote }}
+            {{- if .Values.concourse.worker.baggageclaim.debugBindIp }}
+            - name: CONCOURSE_BAGGAGECLAIM_DEBUG_BIND_IP
+              value: {{ .Values.concourse.worker.baggageclaim.debugBindIp | quote }}
+            {{- end }}
+            {{- if .Values.concourse.worker.baggageclaim.debugBindPort }}
+            - name: CONCOURSE_BAGGAGECLAIM_DEBUG_BIND_PORT
+              value: {{ .Values.concourse.worker.baggageclaim.debugBindPort | quote }}
             {{- end }}
             {{- if .Values.concourse.worker.baggageclaim.volumes }}
             - name: CONCOURSE_BAGGAGECLAIM_VOLUMES

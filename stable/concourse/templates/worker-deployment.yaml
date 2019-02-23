@@ -44,7 +44,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.concourse.worker.healthcheckPort }}
+              port: {{ .Values.concourse.worker.healthcheckBindPort }}
             timeoutSeconds: 5
             failureThreshold: 3
             initialDelaySeconds: 10
@@ -70,13 +70,13 @@ spec:
             - name: CONCOURSE_DRAIN_TIMEOUT
               value: {{ .Values.concourse.worker.drainTimeout | quote }}
             {{- end }}
-            {{- if .Values.concourse.worker.healthcheckIp }}
-            - name: CONCOURSE_HEALTHCHECK_IP
-              value: {{ .Values.concourse.worker.healthcheckIp | quote }}
+            {{- if .Values.concourse.worker.healthcheckBindIp }}
+            - name: CONCOURSE_HEALTHCHECK_BIND_IP
+              value: {{ .Values.concourse.worker.healthcheckBindIp | quote }}
             {{- end }}
-            {{- if .Values.concourse.worker.healthcheckPort }}
-            - name: CONCOURSE_HEALTHCHECK_PORT
-              value: {{ .Values.concourse.worker.healthcheckPort | quote }}
+            {{- if .Values.concourse.worker.healthcheckBindPort }}
+            - name: CONCOURSE_HEALTHCHECK_BIND_PORT
+              value: {{ .Values.concourse.worker.healthcheckBindPort | quote }}
             {{- end }}
             {{- if .Values.concourse.worker.healthcheckTimeout }}
             - name: CONCOURSE_HEALTHCHECK_TIMEOUT

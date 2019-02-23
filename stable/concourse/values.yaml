@@ -506,9 +506,9 @@ concourse:
     ## If set, the worker will be immediately removed upon stalling.
     ephemeral: true
     ## IP address on which to listen for health checking requests.
-    healthcheckIp: 0.0.0.0
+    healthcheckBindIp: 0.0.0.0
     ## Port on which to listen for health checking requests.
-    healthcheckPort: 8888
+    healthcheckBindPort: 8888
     ## HTTP timeout for the full duration of health checking.
     # healthcheckTimeout: 5s
     ## Port on which to listen for beacon pprof server.

@@ -511,8 +511,10 @@ concourse:
     healthcheckBindPort: 8888
     ## HTTP timeout for the full duration of health checking.
     # healthcheckTimeout: 5s
+    ## IP address on which to listen for the pprof debugger endpoints.
+    # debugBindIp: 127.0.0.1
     ## Port on which to listen for beacon pprof server.
-    # bindDebugPort: 9099
+    # debugBindPort: 9099
     ## Version of the worker. This is normally baked in to the binary, so this flag is hidden.
     # version:
     ## Directory in which to place container data.

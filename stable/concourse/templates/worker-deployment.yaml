@@ -110,9 +110,13 @@ spec:
             - name: CONCOURSE_EPHEMERAL
               value: {{ .Values.concourse.worker.ephemeral | quote }}
             {{- end }}
-            {{- if .Values.concourse.worker.bindDebugPort }}
-            - name: CONCOURSE_BIND_DEBUG_PORT
-              value: {{ .Values.concourse.worker.bindDebugPort | quote }}
+            {{- if .Values.concourse.worker.debugBindIp }}
+            - name: CONCOURSE_DEBUG_BIND_IP
+              value: {{ .Values.concourse.worker.debugBindIp | quote }}
+            {{- end }}
+            {{- if .Values.concourse.worker.debugBindPort }}
+            - name: CONCOURSE_DEBUG_BIND_PORT
+              value: {{ .Values.concourse.worker.debugBindPort | quote }}
             {{- end }}
             {{- if .Values.concourse.worker.certsDir }}
             - name: CONCOURSE_CERTS_DIR
